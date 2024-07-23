@@ -6,10 +6,11 @@ import os
 import pandas as pd
 import re
 import urllib.request
+import matplotlib.pyplot as plt
 
 # Define file names
 folder = "files"
-input_file = "PULDB_GH154.txt"
+input_file = "PULDB_GH154_short.txt"
 input_path =  os.path.join(folder, "input_files", input_file)
 output_path =  os.path.join(folder, "output_files", input_file.rsplit(".",1)[0] + "_extracted.txt")
 
@@ -84,10 +85,19 @@ def analyze_data(data_frame, marker_list):
 			count_list.append(len(pos_indices))
 		data_frame[f"Postion_{marker}"] = index_list
 		data_frame[f"Count_{marker}"] = count_list
-
-
 	return(data_frame)
 
+## ================================================================================================	
+def plot_length(data_frame, col_names):
+	length_all = data_frame[col_names[3]].str.count('\s+') + 1
+	ax = length_all.plot(kind='hist', bins=20, edgecolor='black', title="Distribution of PUL length")
+	ax.set_ylabel("Occurences")
+	ax.set_xlabel("Number of genes in the PUL")
+	len_info_str = f"Min = {length_all.min()}\nMax = {length_all.max()}\nAverage = {length_all.mean():.2f}"
+	ax.text(0.95, 0.95, len_info_str, horizontalalignment='right',
+		verticalalignment='top', transform=ax.transAxes)
+	plt.axvline(x=length_all.mean(), color='r', linestyle='-')
+	plt.show()
 
 ## ================================================================================================
 ## SCRIPT
@@ -99,7 +109,8 @@ with open(input_path) as file:
 
 row_cols = extract_data(soup)
 data_frame = clean_data(row_cols, col_names)
-data_frame = analyze_data(data_frame, marker_list)
+data_frame = plot_length(data_frame, col_names)
+# data_frame = analyze_data(data_frame, marker_list)
 
-data_frame.to_csv(output_path, sep="\t", index=False)
-print(f"\nData exported! Saved as:\n{output_path}")
+# data_frame.to_csv(output_path, sep="\t", index=False)
+# print(f"\nData exported! Saved as:\n{output_path}")

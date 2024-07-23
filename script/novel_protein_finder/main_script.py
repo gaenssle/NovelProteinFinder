@@ -20,11 +20,6 @@ def extract_html_data(files, default_values):
 	if files.input_path == "":
 		return {"m_type":"warning", "title":"Missing data", "message":"No input folder selected!"}
 
-	# with open(files.input_path) as file:
-	# 	soup = BeautifulSoup(file, features="html.parser")
-	# row_cols = functions.extract_data(soup)
-	# data_frame = functions.clean_data(row_cols, default_values.col_names)
-
 	# Extract data from html file
 	try:
 		with open(files.input_path) as file:
