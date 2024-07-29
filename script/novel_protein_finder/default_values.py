@@ -20,3 +20,7 @@ class DefaultValues():
 
 		# Set default values for marker
 		self.marker_list =[ "GH154", "unk", "GH"]
+
+		# PUL length - Histrogram plot: Set step size (default=2.5)
+		self.len_plot_step = 2.5
+

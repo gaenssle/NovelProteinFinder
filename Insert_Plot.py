@@ -74,13 +74,6 @@ def get_length_range(length_all, window, len_plot_step, formatting, filter_setti
 			verticalalignment='top', transform=ax.transAxes)
 
 
-
-
-
-
-
-
-
 	len_range_info = "Please insert the minimum and maximum number of genes that a PUL should consist of in order to pass the filter."
 	
 
@@ -143,7 +136,7 @@ def get_length_range(length_all, window, len_plot_step, formatting, filter_setti
 						command = draw_length_plot, 
 						font=formatting.font_text	
 						).grid(
-							row=len(form_dict)+2, 
+							row=len(form_dict)+4, 
 							columnspan=2, 
 							padx=formatting.padx, 
 							pady=formatting.pady
