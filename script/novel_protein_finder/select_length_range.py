@@ -18,7 +18,6 @@ from script.graphical_interface import draw_window
 from script.novel_protein_finder.default_values import DefaultValues
 from script.novel_protein_finder.data_classes import FilterSettings
 
-
 data = 	[14, 11, 30, 26, 15, 14, 15, 41, 11, 21, 13, 8, 16, 11, 11, 18, 16, 10, 9, 18, 17, 15, 17, 52, 9, 40, 9, 15, 23, 39, 40, 15, 15, 40, 38, 10, 38, 10, 23, 23, 23, 24, 22] 
 length_all = pd.Series(data)
 
