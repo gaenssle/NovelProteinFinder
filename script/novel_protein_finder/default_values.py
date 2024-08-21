@@ -24,3 +24,6 @@ class DefaultValues():
 		# PUL length - Histrogram plot: Set step size (default=2.5)
 		self.len_plot_step = 2.5
 
+		# Separator of csv. files
+		self.sep = "\t"
+

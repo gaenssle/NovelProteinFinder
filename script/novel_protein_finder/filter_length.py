@@ -14,36 +14,38 @@ from script.graphical_interface import draw_window
 
 
 ## ===========================================================================
-## Set the range of length which the PUL are allowed to have to pass the filter
-def get_length_range(length_series, window, len_plot_step, formatting, colors, filter_settings):
-	plot_bins = round((length_series.max() - length_series.min())/len_plot_step)
-	len_range_info = "Please insert the minimum and maximum number of genes that a PUL should consist of in order to pass the filter."
+## Offer a way to temporarily change the default values with an entry mask
+def get_length_range(length_all, window, len_plot_step, formatting, colors, filter_settings):
+	plot_bins = round((length_all.max() - length_all.min())/len_plot_step)
 
 
-	## Check if inserted values are integers and within range
-	def check_range(min_variable, max_variable, length_series):
+	## Check if the entered data in the column entry widgets are integers and within the correct range ----
+	def get_integer(set_limit, variable, length_series, var_type):
+		value_input = variable.get()
 		try:
-			min_value = int(min_variable.get())
-			max_value = int(max_variable.get())
+			value_input = int(value_input)
 		except ValueError:
-			tkinter.messagebox.showwarning("Incorrect data", f"Please enter full numbers for the length range")
+			tkinter.messagebox.showwarning("Incorrect data", f"Please enter full numbers for the {var_type} length")
 			return False
-		if max_value < length_series.min() or min_value > length_series.max():
-			tkinter.messagebox.showwarning("Incorrect data", f"Please enter values within the allowed range ({length_series.min()}-{length_series.max()})")
+		if value_input < length_series.min() or value_input > length_series.max():
+			tkinter.messagebox.showwarning("Incorrect data", f"Please enter a {var_type} length within the allowed range ({length_series.min()}-{length_series.max()})")
 			return False
 		else:
+			set_limit = value_input
 			return True
 
 
-	## Submit the changes to change the range
+	## Submit the changes to alter the default values ------------------------
 	def submit_length_range():
-		if check_range(min_length, max_length, length_series):
-			filter_settings.length_min_range = int(min_length.get())
-			filter_settings.length_max_range = int(max_length.get())
+		check_min = get_integer(filter_settings.length_min_range, min_length, length_all, "min")
+		print(filter_settings.length_min_range)
+		check_max = get_integer(filter_settings.length_max_range, max_length, length_all, "max")
+		if all([check_min, check_max]):
 			tkinter.messagebox.showinfo("Change range", f"The length range {filter_settings.length_min_range}-{filter_settings.length_max_range} has been saved.")
 
 
-	## Draw plot: Histogram of PUL length
+
+	# Draw plot
 	def draw_length_plot(): 
 		figure = plt.Figure(figsize=(6, 5), dpi=100)
 		ax = figure.add_subplot(111)
@@ -55,16 +57,18 @@ def get_length_range(length_series, window, len_plot_step, formatting, colors, f
 					padx=formatting.padx, 
 					pady=formatting.pady
 					)
-		length_series.plot(kind="hist", bins=plot_bins, edgecolor='black', title="Distribution of PUL length", ax=ax)
+		length_all.plot(kind="hist", bins=plot_bins, edgecolor='black', title="Distribution of PUL length", ax=ax)
 		ax.set_ylabel("Occurences")
 		ax.set_xlabel("Number of genes in the PUL")
-		len_info_str = f"Min = {length_series.min()}\nMax = {length_series.max()}\nAverage = {length_series.mean():.2f}"
+		len_info_str = f"Min = {length_all.min()}\nMax = {length_all.max()}\nAverage = {length_all.mean():.2f}"
 		ax.text(0.95, 0.95, len_info_str, horizontalalignment='right',
 			verticalalignment='top', transform=ax.transAxes)
 
 
-	## ===========================================================================
-	## Create window for changing the length range
+	len_range_info = "Please insert the minimum and maximum number of genes that a PUL should consist of in order to pass the filter."
+	
+
+	# Create window for changing the length range
 	window_set_length_range = tk.Toplevel(window)
 	window_set_length_range.title("Set PUL length")
 	tk.Label(
@@ -99,6 +103,7 @@ def get_length_range(length_series, window, len_plot_step, formatting, colors, f
 		"Min length": min_length,
 		"Max length:": max_length
 	}
+
 	draw_window.draw_form(form_dict, window_set_length_range, formatting, add=2)
 
 	# Create button to submit the added changes
@@ -113,6 +118,7 @@ def get_length_range(length_series, window, len_plot_step, formatting, colors, f
 							padx=formatting.padx, 
 							pady=formatting.pady
 							)
+
 
 	# button that displays the plot 
 	plot_button = tk.Button(

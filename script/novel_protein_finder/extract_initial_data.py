@@ -1,13 +1,23 @@
 #!/usr/bin/python
 # Written by ALGaenssle in 2024
-## SCRIPT - FUNCTIONS
-## All functions for importing from PUL-DB
 
+## ====================================================================
+## SCRIPT - MAIN
+## Main script for importing SEC data
+## ====================================================================
+
+from bs4 import BeautifulSoup
+import os
 import pandas as pd
 import re
 
+# Import own modules
+# from . import functions
 
-## ================================================================================================
+
+## ===========================================================================
+## SUB-FUNCTIONS
+## ===========================================================================
 ## Extract all table elements
 def extract_data(soup):
 	row_cols = []
@@ -57,20 +67,35 @@ def clean_data(row_cols, col_names):
 	return(data_frame)
 
 
-## ================================================================================================
-## Count and find the positions of each chosen marker
-def analyze_data(data_frame, marker_list):
-	data_frame["Length"] = data_frame[col_names[3]].str.count(r'\s+') + 1
+## ===========================================================================
+## MAIN FUNCTION
+## ===========================================================================
+## Main funtion to export html data
+def extract_html_data(files, default_values):
+	if files.input_path == "":
+		return {"m_type":"warning", "title":"Missing data", "message":"No input folder selected!"}
 
-	# Convert to list and extract position of each occurence of each marker
-	mod_list = data_frame[col_names[3]].str.split(" ").to_list()
-	for marker in marker_list:
-		index_list = []
-		count_list = []	
-		for row in mod_list:
-			pos_indices = [str(index) for index, string in enumerate(row) if marker in string]
-			index_list.append(", ".join(pos_indices))
-			count_list.append(len(pos_indices))
-		data_frame[f"Postion_{marker}"] = index_list
-		data_frame[f"Count_{marker}"] = count_list
-	return(data_frame)
+	# Extract data from html file
+	try:
+		with open(files.input_path) as file:
+			soup = BeautifulSoup(file, features="html.parser")
+		row_cols = extract_data(soup)
+	except:
+		return {"m_type":"warning", 
+				"title":"Incorrect data", 
+				"message":"Could not parse html data!\nPlease check if you copied the source code \n(--> lots of <td></td>)"}
+
+	# Extract data and convert to pandas dataframe
+	try:
+		data_frame = clean_data(row_cols, default_values.col_names)
+	except:
+		return {"m_type":"warning", 
+				"title":"Incorrect data", 
+				"message":"Could not convert to table!\nPlease check if the column names are correct\n(--> see 'Configure')"}
+			
+	# Export data
+	message = "Created files:\n\n"
+	data_frame.to_csv(files.output_path, sep=default_values.sep, index=False)
+	message += "- File with all PULs\n"
+
+	return {"m_type": "info", "title": "Done exporting", "message": message}

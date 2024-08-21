@@ -25,6 +25,7 @@ class FilterSettings():
 	def __init__(self, data_series):
 
 		# Set range for filtering on length
+		self.length_series = data_series
 		self.length_min_range = data_series.min()
 		self.length_max_range = data_series.max()
 

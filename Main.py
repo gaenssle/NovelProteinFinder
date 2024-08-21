@@ -14,9 +14,10 @@ from script.graphical_interface.file_selection import FileSelection
 from script.graphical_interface import menu_about
 from script.graphical_interface import menu_change_markers
 
-from script.novel_protein_finder.main_script import extract_html_data
+from script.novel_protein_finder.extract_initial_data import extract_html_data
 from script.novel_protein_finder.default_values import DefaultValues
-
+from script.novel_protein_finder.data_classes import FilterSettings
+from script.novel_protein_finder.select_length_range import get_length_range
 
 
 # Create class objects
@@ -25,6 +26,12 @@ if __name__=="__main__":
 	default_values = DefaultValues()
 	colors = formatting.Colors()
 	formatting = formatting.Formatting()
+
+
+
+import pandas as pd
+data = 	[14, 11, 30, 26, 15, 14, 15, 41, 11, 21, 13, 8, 16, 11, 11, 18, 16, 10, 9, 18, 17, 15, 17, 52, 9, 40, 9, 15, 23, 39, 40, 15, 15, 40, 38, 10, 38, 10, 23, 23, 23, 24, 22] 
+length_all = pd.Series(data)
 
 ## ===========================================================================
 ## FUNCTIONS
@@ -51,7 +58,7 @@ def set_truncated_path(path, tk_variable):
 # Save selection of input files
 def submit_selection():
 	if files.input_path == "":
-		tkinter.messagebox.showwarning("Missing data","No input folder selected!")
+		tkinter.messagebox.showwarning("Missing data","No input file selected!")
 		return
 
 # Conduct importing, combining and exporting of files
@@ -62,6 +69,16 @@ def extract_initial_data():
 	else:
 		tkinter.messagebox.showwarning(message["title"], message["message"])
 
+# Set filters for the PUL length
+def filter_length():
+	if os.path.exists(files.output_path):
+		data_frame = pd.read_csv(files.output_path, sep=default_values.sep)
+		data_frame["Length"] = data_frame[default_values.col_names[3]].str.count(r'\s+') + 1
+		length_series = data_frame["Length"]
+		filter_settings = FilterSettings(length_series)
+		get_length_range(length_series, window, default_values.len_plot_step, formatting, colors, filter_settings)
+	else:
+		tkinter.messagebox.showwarning("Missing data","No input file created!")
 
 ## ===========================================================================
 ## SETUP WINDOW
@@ -73,10 +90,10 @@ window.resizable(False, False)
 
 
 col_files = tk.Frame(window, relief=tk.RAISED, bd=3, bg=colors.col_main)
-col_export = tk.Frame(window, relief=tk.RAISED, bd=3, bg=colors.col_main)
+col_filter = tk.Frame(window, relief=tk.RAISED, bd=3, bg=colors.col_main)
 
 # Draw frames
-draw_window.draw_frame([col_files, col_export])
+draw_window.draw_frame([col_files, col_filter])
 
 
 ## ===========================================================================
@@ -168,6 +185,32 @@ widgets = {
 			labframe_output_file:2, 
 			display_output_file:1,
 			button_export:2
+			}
+draw_window.draw_widget(widgets, formatting)
+
+
+## ===========================================================================
+## COLUMN: FILTER
+## ===========================================================================
+## Define default values
+# input_path = tk.StringVar(value="#N/A")
+
+## Header
+lab_col_filter = tk.Label(col_filter, text="FILTER", bg=colors.heading, 
+				font=formatting.font_heading)
+
+## Conduct export
+button_len_filter = tk.Button(col_filter, 
+						text="Set PULs length", 
+						command=filter_length, 
+						bg=colors.accent, 
+						font=formatting.font_subheading)
+
+
+## Draw widgets (as dict {widget: pady-multiplier})
+widgets = {
+			lab_col_filter:1, 
+			button_len_filter:2
 			}
 draw_window.draw_widget(widgets, formatting)
 
