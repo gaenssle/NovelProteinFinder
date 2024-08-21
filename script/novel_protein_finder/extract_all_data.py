@@ -95,7 +95,7 @@ def extract_html_data(files, default_values):
 			
 	# Export data
 	message = "Created files:\n\n"
-	data_frame.to_csv(files.output_path, sep=default_values.sep, index=False)
+	data_frame.to_csv(files.path_data_all, sep=default_values.sep, index=False)
 	message += "- File with all PULs\n"
 
 	return {"m_type": "info", "title": "Done exporting", "message": message}

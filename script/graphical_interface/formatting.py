@@ -11,6 +11,7 @@ class Colors():
 		self.col_sub = "#0066ff"
 		self.col_accent = "#003380"
 		self.button = "#bdccdb"
+		self.button_select = "#7F7D9C"
 		self.heading = "#ffcc00"
 		self.main = "#5377ac"
 		self.accent = "#998566"
@@ -21,8 +22,8 @@ class Colors():
 ## Set formatting for window
 class Formatting():
 	def __init__(self):
-		self.lab_max_length = 250
-		self.label_width = 25
+		self.lab_max_length = 200
+		self.label_width = 30
 		self.min_x_size = 300
 		self.min_y_size = 550
 		self.padx = 10

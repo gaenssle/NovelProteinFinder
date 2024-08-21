@@ -3,6 +3,7 @@
 # MAIN
 # main script to extract and find novel proteins
 
+import pandas as pd
 import os
 import tkinter as tk
 import tkinter.messagebox
@@ -14,7 +15,7 @@ from script.graphical_interface.file_selection import FileSelection
 from script.graphical_interface import menu_about
 from script.graphical_interface import menu_change_markers
 
-from script.novel_protein_finder.extract_initial_data import extract_html_data
+from script.novel_protein_finder.extract_all_data import extract_html_data
 from script.novel_protein_finder.default_values import DefaultValues
 from script.novel_protein_finder.data_classes import FilterSettings
 from script.novel_protein_finder.select_length_range import get_length_range
@@ -26,12 +27,9 @@ if __name__=="__main__":
 	default_values = DefaultValues()
 	colors = formatting.Colors()
 	formatting = formatting.Formatting()
+	filter_settings = FilterSettings()
 
 
-
-import pandas as pd
-data = 	[14, 11, 30, 26, 15, 14, 15, 41, 11, 21, 13, 8, 16, 11, 11, 18, 16, 10, 9, 18, 17, 15, 17, 52, 9, 40, 9, 15, 23, 39, 40, 15, 15, 40, 38, 10, 38, 10, 23, 23, 23, 24, 22] 
-length_all = pd.Series(data)
 
 ## ===========================================================================
 ## FUNCTIONS
@@ -40,12 +38,18 @@ length_all = pd.Series(data)
 def set_input_file(ask=True):
 	files.get_input_file(ask=ask)
 	set_truncated_path(files.input_path, input_path)
-	set_truncated_path(files.output_path, output_path)
+	set_truncated_path(files.path_data_all, path_data_all)
+	set_truncated_path(files.path_data_filtered, path_data_filtered)
 
-# Set costumized output folder
-def set_output_file():
-	files.get_output_file()
-	set_truncated_path(files.output_path, output_path)
+# Set costumized output file location and name
+def set_path_data_all():
+	files.get_path_data_all()
+	set_truncated_path(files.path_data_all, path_data_all)
+
+# Set costumized output file location and name
+def set_path_data_filtered():
+	files.get_path_data_filtered()
+	set_truncated_path(files.path_data_filtered, path_data_filtered)
 
 # Truncate paths that are too long
 def set_truncated_path(path, tk_variable):
@@ -62,23 +66,40 @@ def submit_selection():
 		return
 
 # Conduct importing, combining and exporting of files
-def extract_initial_data():
+def extract_data_all():
 	message = extract_html_data(files, default_values)
 	if message["m_type"] == "info":
 		tkinter.messagebox.showinfo(message["title"], message["message"])
 	else:
 		tkinter.messagebox.showwarning(message["title"], message["message"])
 
+	# Set up fata for filtering	
+	data_frame = pd.read_csv(files.path_data_all, sep=default_values.sep)
+	data_frame["Length"] = data_frame[default_values.col_names[3]].str.count(r'\s+') + 1
+	filter_settings.add_data(data_frame)
+
+
 # Set filters for the PUL length
-def filter_length():
-	if os.path.exists(files.output_path):
-		data_frame = pd.read_csv(files.output_path, sep=default_values.sep)
-		data_frame["Length"] = data_frame[default_values.col_names[3]].str.count(r'\s+') + 1
-		length_series = data_frame["Length"]
-		filter_settings = FilterSettings(length_series)
+def set_filter_length():
+	if filter_settings.set_data:
+		length_series = filter_settings.data["Length"]
 		get_length_range(length_series, window, default_values.len_plot_step, formatting, colors, filter_settings)
 	else:
-		tkinter.messagebox.showwarning("Missing data","No input file created!")
+		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
+
+def filter_data():
+	if filter_settings.set_data:
+		data_filtered = filter_settings.data.copy()	# Make a copy to avoid errors
+
+		# Filter data based on PUL length
+		data_filtered = data_filtered[data_filtered["Length"] > filter_settings.length_min_range]
+		data_filtered = data_filtered[data_filtered["Length"] < filter_settings.length_max_range]
+
+		data_filtered.to_csv(files.path_data_filtered, sep=default_values.sep, index=False)
+		tkinter.messagebox.showinfo("Data exported", "The filtered data has been exported.")
+	else:
+		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
+
 
 ## ===========================================================================
 ## SETUP WINDOW
@@ -130,13 +151,13 @@ window.config(menu=menu_bar)
 ## ===========================================================================
 ## Define default values
 input_path = tk.StringVar(value="#N/A")
-output_path = tk.StringVar(value="#N/A")
+path_data_all = tk.StringVar(value="#N/A")
 
 ## Header
 lab_col_files = tk.Label(col_files, text="FILES", bg=colors.heading, 
 				font=formatting.font_heading)
 
-## Create section for input folder
+## Create section for input file path
 button_input_file = tk.Button(col_files, 
 								text="Select input file", 
 								bg=colors.button, 
@@ -149,30 +170,30 @@ labframe_input_file = tk.LabelFrame(col_files,
 display_input_file = tk.Label(labframe_input_file, 
 								textvariable=input_path, 
 								bg=colors.col_main, 
-								wraplength=formatting.lab_max_length/2, 
+								wraplength=formatting.lab_max_length/1.1, 
 								height=formatting.display_height, 
 								font=formatting.font_note)
 
-## Create section for output folder
-button_output_file = tk.Button(col_files, 
-								text="Select output file", 
+## Create section for file path for all data
+button_file_data_all = tk.Button(col_files, 
+								text="Set file name for all data", 
 								bg=colors.button, 
-								command=set_output_file, 
+								command=set_path_data_all, 
 								font=formatting.font_text)
-labframe_output_file = tk.LabelFrame(col_files, 
+labframe_file_data_all = tk.LabelFrame(col_files, 
 									bg=colors.col_main, 
-									labelwidget=button_output_file, 
+									labelwidget=button_file_data_all, 
 									labelanchor="n")
-display_output_file = tk.Label(labframe_output_file, 
-								textvariable=output_path, 
+display_file_data_all = tk.Label(labframe_file_data_all, 
+								textvariable=path_data_all, 
 								bg=colors.col_main, 
-								wraplength=formatting.lab_max_length/2, 
+								wraplength=formatting.lab_max_length/1.1, 
 								height=formatting.display_height, 
 								font=formatting.font_note)
 ## Conduct export
 button_export = tk.Button(col_files, 
 						text="EXPORT DATA!", 
-						command=extract_initial_data, 
+						command=extract_data_all, 
 						bg=colors.accent, 
 						font=formatting.font_subheading)
 
@@ -182,8 +203,8 @@ widgets = {
 			lab_col_files:1, 
 			labframe_input_file:2, 
 			display_input_file:1, 
-			labframe_output_file:2, 
-			display_output_file:1,
+			labframe_file_data_all:2, 
+			display_file_data_all:1,
 			button_export:2
 			}
 draw_window.draw_widget(widgets, formatting)
@@ -193,16 +214,43 @@ draw_window.draw_widget(widgets, formatting)
 ## COLUMN: FILTER
 ## ===========================================================================
 ## Define default values
-# input_path = tk.StringVar(value="#N/A")
+path_data_filtered = tk.StringVar(value="#N/A")
+
+
 
 ## Header
 lab_col_filter = tk.Label(col_filter, text="FILTER", bg=colors.heading, 
 				font=formatting.font_heading)
 
-## Conduct export
+## Set allowed range of PUL length
 button_len_filter = tk.Button(col_filter, 
 						text="Set PULs length", 
-						command=filter_length, 
+						command=set_filter_length, 
+						bg=colors.button_select, 
+						font=formatting.font_subheading)
+
+
+## Create section for file path for filtered data
+button_file_data_filtered = tk.Button(col_filter, 
+								text="Define name for filtered data", 
+								bg=colors.button, 
+								command=set_path_data_filtered, 
+								font=formatting.font_text)
+labframe_file_data_filtered = tk.LabelFrame(col_filter, 
+									bg=colors.col_main, 
+									labelwidget=button_file_data_filtered, 
+									labelanchor="n")
+display_file_data_filtered = tk.Label(labframe_file_data_filtered, 
+								textvariable=path_data_filtered, 
+								bg=colors.col_main, 
+								wraplength=formatting.lab_max_length/1.1, 
+								height=formatting.display_height, 
+								font=formatting.font_note)
+
+## Conduct export
+button_filter = tk.Button(col_filter, 
+						text="FILTER DATA!", 
+						command=filter_data, 
 						bg=colors.accent, 
 						font=formatting.font_subheading)
 
@@ -210,84 +258,13 @@ button_len_filter = tk.Button(col_filter,
 ## Draw widgets (as dict {widget: pady-multiplier})
 widgets = {
 			lab_col_filter:1, 
-			button_len_filter:2
+			button_len_filter:2,
+			labframe_file_data_filtered:2, 
+			display_file_data_filtered:1,
+			button_filter:2
 			}
 draw_window.draw_widget(widgets, formatting)
 
-
-# ## ===========================================================================
-# ## COLUMN: EXPORT
-# ## ===========================================================================
-# ## Define default values
-# file_name = tk.StringVar(value=files.file_name)
-# export_info = tk.BooleanVar()
-# export_raw = tk.BooleanVar()
-# export_elute = tk.BooleanVar()
-
-# ## Header
-# lab_col_export = tk.Label(col_export, 
-# 						text="EXPORT", 
-# 						bg=colors.heading, 
-# 						font=formatting.font_heading)
-
-# ## Give option to change the export file name
-# button_file_name = tk.Button(col_export, 
-# 							text="Save output file name", 
-# 							bg=colors.button, 
-# 							command=set_file_name, 
-# 							font=formatting.font_text)
-# labframe_file_name = tk.LabelFrame(col_export, 
-# 									bg=colors.col_main, 
-# 									labelwidget=button_file_name, 
-# 									labelanchor="n")
-# entry_file_name = tk.Entry(labframe_file_name, 
-# 							textvariable=file_name, 
-# 							font=formatting.font_text)
-
-# ## List types of output that can be exported
-# lab_file_column = tk.Label(col_export, 
-# 							text="SELECT OUTPUT", 
-# 							bg=colors.heading, 
-# 							font=formatting.font_heading)
-# check_info = tk.Checkbutton(col_export, 
-# 							text="Information data", 
-# 							variable=export_info, 
-# 							bg=colors.col_main, 
-# 							font=formatting.font_text)
-# check_raw = tk.Checkbutton(col_export, 
-# 							text="Raw data",
-# 							variable=export_raw, 
-# 							bg=colors.col_main, 
-# 							font=formatting.font_text)
-# check_elute = tk.Checkbutton(col_export, 
-# 							text="Elution data", 
-# 							variable=export_elute, 
-# 							bg=colors.col_main, 
-# 							font=formatting.font_text)
-# check_info.select()
-# check_raw.select()
-# check_elute.select()
-
-# ## Conduct export
-# button_export = tk.Button(col_export, 
-# 						text="EXPORT DATA!", 
-# 						command=extract_data, 
-# 						bg=colors.accent, 
-# 						font=formatting.font_subheading)
-
-
-# ## Draw widgets (as dict {widget: pady-multiplier})
-# widgets = {
-# 			lab_col_export:1, 
-# 			labframe_file_name:2, 
-# 			entry_file_name:1, 
-# 			lab_file_column:1, 
-# 			check_info:0, 
-# 			check_raw:0, 
-# 			check_elute:0, 
-# 			button_export:2
-# 			}
-# draw_window.draw_widget(widgets, formatting)
 
 
 ## ===========================================================================

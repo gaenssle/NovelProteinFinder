@@ -13,19 +13,28 @@ import tkinter.filedialog
 class FileSelection():
 	def __init__(self):
 		self.input_path = ""
-		self.output_path = ""
-		self.added_ending = "_extracted.csv"
+		self.path_data_all = ""
+		self.path_data_filtered = ""
+		self.added_ending_all = "_extracted.csv"
+		self.added_ending_filtered = "_filtered.csv"
 
 	## FILES --------------------------------------------------------
 	# Get input file path
 	def get_input_file(self, ask=True):
 		if ask:
 			self.input_path = tk.filedialog.askopenfilename()
-			self.output_path = self.input_path.rsplit(".", 1)[0] + self.added_ending
+			self.path_data_all = self.input_path.rsplit(".", 1)[0] + self.added_ending_all
+			self.path_data_filtered = self.input_path.rsplit(".", 1)[0] + self.added_ending_filtered
 		else:
 			self.input_path = ""
-			self.output_path = ""
+			self.path_data_all = ""
+			self.path_data_filtered = ""
 
-	# Set new output file path
-	def get_output_file(self):
-		self.output_path = tk.filedialog.asksaveasfilename()
+	# Set new path for exporting all data
+	def get_path_data_all(self):
+		self.path_data_all = tk.filedialog.asksaveasfilename()
+
+
+	# Set new path for exporting all data
+	def get_path_data_filtered(self):
+		self.path_data_filtered = tk.filedialog.asksaveasfilename()
