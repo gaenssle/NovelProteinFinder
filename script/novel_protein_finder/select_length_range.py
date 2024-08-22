@@ -3,7 +3,7 @@
 import tkinter as tk
 import tkinter.messagebox
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import sys
 
 ## import own modules
@@ -47,9 +47,18 @@ def get_length_range(length_series, window, len_plot_step, formatting, colors, f
 		figure = plt.Figure(figsize=(6, 5), dpi=100)
 		ax = figure.add_subplot(111)
 		canvas = FigureCanvasTkAgg(figure, window_set_length_range)
+		canvas.draw()
+		toolbar = NavigationToolbar2Tk(canvas, window_set_length_range, pack_toolbar=False)
+		toolbar.update()
 		canvas.get_tk_widget(
 			).grid(
 					row=len(form_dict)+5, 
+					columnspan=2, 
+					padx=formatting.padx, 
+					pady=formatting.pady
+					)
+		toolbar.grid(
+					row=len(form_dict)+6, 
 					columnspan=2, 
 					padx=formatting.padx, 
 					pady=formatting.pady

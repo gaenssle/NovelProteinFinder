@@ -19,7 +19,7 @@ from script.novel_protein_finder.extract_all_data import extract_html_data
 from script.novel_protein_finder.default_values import DefaultValues
 from script.novel_protein_finder.data_classes import FilterSettings
 from script.novel_protein_finder.select_length_range import get_length_range
-
+from script.novel_protein_finder.select_required_proteins import draw_protein_window
 
 ## ===========================================================================
 ## CREATE CLASS OBJECTS
@@ -91,9 +91,8 @@ def set_filter_length():
 ## Select proteins the PUL have to contain to pass the filter
 def select_proteins():
 	if filter_settings.set_data:
-		mod_list = filter_settings.data[default_values.col_names[3]].str.split(" ").to_list()
-		print(mod_list)
-		# select_required_proteins(length_series, window, default_values.len_plot_step, formatting, colors, filter_settings)
+		pul_list = filter_settings.data[default_values.col_names[3]].str.split(" ").to_list()
+		draw_protein_window(pul_list, window, formatting, colors, filter_settings, default_values)
 	else:
 		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
 

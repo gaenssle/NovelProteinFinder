@@ -19,25 +19,30 @@ from script.graphical_interface.file_selection import FileSelection
 from script.novel_protein_finder.default_values import DefaultValues
 from script.novel_protein_finder.data_classes import FilterSettings
 
-protein_selection_info = "Please select all the proteins that the PUL is required to contain to pass the filter."
 
-## ========================================================================
-## Create dataframe with all found proteins and their occurence
-def get_protein_list(pul_list):
-	temp1_list = [protein for pul in pul_list for protein in pul]
-	temp2_list = [protein.split("|") for protein in temp1_list]
-	protein_list = [domain for protein in temp2_list for domain in protein]
-	protein_data = pd.Series(protein_list).value_counts()
-	protein_count = pd.DataFrame(protein_data).reset_index()
-	protein_count.columns = default_values.protein_col_names
-	filter_settings.add_proteins(protein_count)
+
+
 
 
 	
-## ========================================================================
+## ============================================================================
 ## Draw window for protein selection with all its contents
-## ========================================================================
-def draw_protein_window(window, protein_selection_info):
+## ============================================================================
+def draw_protein_window(pul_list, window, formatting, colors, filter_settings, default_values):
+	protein_selection_info = "Please select all the proteins that the PUL is required to contain to pass the filter."
+
+
+	## ========================================================================
+	## Create dataframe with all found proteins and their occurence
+	def get_protein_list(pul_list):
+		temp1_list = [protein for pul in pul_list for protein in pul]
+		temp2_list = [protein.split("|") for protein in temp1_list]
+		protein_list = [domain for protein in temp2_list for domain in protein]
+		protein_data = pd.Series(protein_list).value_counts()
+		protein_count = pd.DataFrame(protein_data).reset_index()
+		protein_count.columns = default_values.protein_col_names
+		filter_settings.add_proteins(protein_count)
+
 
 	## ========================================================================
 	## Get all .txt files in folder and select all
@@ -95,6 +100,9 @@ def draw_protein_window(window, protein_selection_info):
 		ax.invert_yaxis()
 		ax.set_xlabel("Occurences")
 
+	## ============================================================================
+	## Draw new window
+	## ============================================================================
 
 	window_select_proteins = tk.Toplevel(window)
 	window_select_proteins.title("Select required proteins")
@@ -124,6 +132,7 @@ def draw_protein_window(window, protein_selection_info):
 	## Create list box displaying all proteins
 	## ========================================================================
 	## Define default values
+	get_protein_list(pul_list)
 	protein_list_string=tk.Variable(value=[""])
 
 	## Create button to submit selection
@@ -183,68 +192,3 @@ def draw_protein_window(window, protein_selection_info):
 	widgets_plot_button = {button_plot:0}
 	draw_window.draw_widget(widgets_plot_button, formatting, start_row=3, start_col=1)
 	set_protein_list(protein_list_string)
-
-
-## ===========================================================================
-## MAIN FUNCTION
-## ===========================================================================
-def select_proteins():
-	data_frame = pd.read_csv(files.path_data_all, sep=default_values.sep)
-	data_frame["Length"] = data_frame[default_values.col_names[3]].str.count(r'\s+') + 1
-	filter_settings.add_data(data_frame)
-	if filter_settings.set_data:
-		pul_list = filter_settings.data[default_values.col_names[3]].str.split(" ").to_list()
-		get_protein_list(pul_list)
-
-
-		draw_protein_window(window, protein_selection_info)
-		# set_file_list()
-
-	else:
-		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
-
-
-
-
-## ===========================================================================
-## SET CLASS INSTANCES
-## ===========================================================================
-# Create class objects
-if __name__=="__main__":
-	files = FileSelection()
-	default_values = DefaultValues()
-	colors = formatting.Colors()
-	formatting = formatting.Formatting()
-	filter_settings = FilterSettings()
-	files.path_data_all = "/home/nepomuk/Desktop/Git/NovelProteinFinder/files/input_files/PULDB_GH154_short_filtered.csv"
-
-## ===========================================================================
-## MAIN WINDOW
-## ===========================================================================
-window = tk.Tk()
-window.title("Find novel proteins")
-window.resizable(False, False)
-
-
-col_filter = tk.Frame(window, relief=tk.RAISED, bd=3, bg=colors.col_main)
-
-# Draw frames
-draw_window.draw_frame([col_filter])
-
-
-
-## Conduct export
-button_len_filter = tk.Button(col_filter, 
-						text="Select required proteins", 
-						command=select_proteins, 
-						bg=colors.accent, 
-						font=formatting.font_subheading)
-
-
-## Draw widgets (as dict {widget: pady-multiplier})
-widgets = {
-			button_len_filter:2
-			}
-draw_window.draw_widget(widgets, formatting)
-
-window.mainloop()
