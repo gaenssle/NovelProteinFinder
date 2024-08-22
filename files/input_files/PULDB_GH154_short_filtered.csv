@@ -1,15 +1,42 @@
 Species	PUL ID	Name	Modularity	Overlap IDs	Overlap Names	Length
 Bacteroides cellulosilyticus WH2 (new assembly)	#28108	Literature-derived PUL 18	GH43_17 GH2 GH51_2 GH51_2 GH97|GH43_19 GH43_19|GH43_34 GH105 PL42 GH154 GH43_24 SusD SusC HTCS	#28220	Pred 17 	13
+Bacteroides fragilis 638R	#3775	Literature-derived PUL 1	GH154 GH2 GH20 unk GH88 PL33_1 SusD SusC HTCS	#3781	Pred 3 	9
+Bacteroides ovatus ATCC 8483	#282	Literature-derived PUL 49	GH2 CE12|CE12 HTCS unk unk unk unk GH106 unk unk PL11_1 SusD SusC unk unk SusD SusC unk GH2 GH88 GH154 Est GH28 unk GH95 GH2 GH105 PL11_1	#397	Pred 49 	28
+Bacteroides ovatus ATCC 8483 (new assembly)	#28541	Literature-derived PUL 49	GH2 CE12|CE12 HTCS unk GH106 unk unk PL11_1 SusD SusC unk unk SusD SusC unk GH2 GH88 GH154 Est GH28 GH95 GH2 GH105 PL11_1	#28661	Pred 56 	24
 Bacteroides thetaiotaomicron 7330 (new assembly)	#28382	Literature-derived PUL 76	GH105 PL42 GH43_24 GH16_3|GH43_24 unk SusD SusC unk HTCS GH154 unk GH43_34 GH127	#28469	Pred 72 	13
 Bacteroides thetaiotaomicron VPI-5482	#27870	Literature-derived PUL 42	GH146 GH43_26|GH106 GH88 Sulf_1 unk GH154 unk unk SusD SusC GH105 GH2 HTCS	#27963	Pred 39 	13
 Bacteroides thetaiotaomicron VPI-5482	#27893	Literature-derived PUL 65	GH127 GH43_34 unk GH154 HTCS unk SusC SusD unk GH16_3|GH43_24 GH43_24 PL42 GH105	#27987	Pred 63 	13
+Phocaeicola plebeius DSM 17135	#3605	Literature-derived PUL 1	unk unk unk GH16_16 GH117 GH2 GH2 unk unk unk MFS unk unk unk unk unk GH50 GH105|GH154 unk unk unk unk GH16_12 unk unk unk GH86 GH86 unk unk SusD SusC HTCS unk Sulf_1 GH29 GH16_14 SusD SusC GH2	#3621, #3651	Pred 16 , CAZy 3 	40
+Abyssalbus ytuae MT3330	#60588	Predicted PUL 26	GH154 PL42 GH88 HTCS SusC SusD GH105 GH43 GH16_3 GH154			10
+Aestuariibaculum sp. YM273	#75792	Predicted PUL 2	unk unk GH154 GH2 unk GH43_17 GH27|CBM51 GH43_29 GH43_19 GH43_19|GH43_34 GH16_10 unk unk SusD SusC GH2 GH88 PL42 HTCS GH30_4			20
+Alistipes senegalensis JC50	#63810	Predicted PUL 50	GH88 SusC SusD SusC SusD unk unk unk PL38 Sulf_1 unk GH154			12
 Arachidicoccus soli KIS59-12	#34010	Predicted PUL 26	GH2 GH27 GH35 GH51_1 GH43_24 PL42 GH16 unk SusD SusC SusD SusC GH154 GH2 HTCS			15
+Arachidicoccus sp. BS20	#23515	Predicted PUL 37	HTCS GH43_17 SusC SusD GH16_3 GH154 GH43_24 GH51_1 GH2 GH35			10
+Arcticibacter pallidicorallinus CGMCC 1.9313	#32270	Predicted PUL 44	SusC SusD unk GH51_1 GH51_2 GH43_5 GH97 PL42 GH154 GH43_34|GH105			10
 Bacteroides caccae ATCC 43185	#467	Predicted PUL 1	HTCS unk SusC SusD unk unk GH2 GH105 SusC SusD GH154 unk Sulf_1 GH88 GH43_26|GH106 GH146 GH182			17
 Bacteroides caccae ATCC 43185	#481	Predicted PUL 15	GH154 GH88 unk GH95 HTCS GH29 unk unk SusD SusC SusD SusC unk GH29			14
+Bacteroides caccae ATCC 43185	#487	Predicted PUL 21	GH154 GH88 SusC SusD Pept_MA Pept_MA PL35 GH109 HTCS			9
+Bacteroides caccae ATCC 43185	#497	Predicted PUL 31	unk SusD SusC unk GH154 GH154 GH88 HTCS			8
 Bacteroides caccae ATCC 43185	#518	Predicted PUL 52	GH35|CBM32 GH43_19 GH51_2 GH97 GH43_34 HTCS SusC SusD SusC SusD unk GH16_3 GH16_3|GH43_24 GH154 GH43_24 PL42 GH105			17
 Bacteroides caccae ATCC 43185 (new assembly)	#29619	Predicted PUL 15	GH182 GH146 GH43_26|GH106 GH88 Sulf_1 unk GH154 SusD SusC GH105 GH2 unk unk SusD SusC HTCS			16
 Bacteroides caccae ATCC 43185 (new assembly)	#29623	Predicted PUL 19	GH154 GH88 GH95 HTCS GH29 unk unk SusD SusC SusD SusC unk GH29			13
 Bacteroides caecimuris I48	#23544	Predicted PUL 3	GH35|CBM32 GH43_19 GH51_2 GH97 unk HTCS SusC SusD SusC SusD unk GH16_3 GH16_3|GH43_24 GH154 PL42 GH105			16
+Bacteroides cellulosilyticus BFG-250	#56047	Predicted PUL 4	GH2 unk SusD SusC GH154 unk HTCS GH10|CBM48|CE			8
+Bacteroides cellulosilyticus BFG-371	#65744	Predicted PUL 2	GH43_17 GH2 GH51_2 GH51_2 GH97|GH43_19 GH43_19|GH43_34 GH105 PL42 unk GH43_24 SusD SusC HTCS GH43_24|GH16_3 GH16_3 CBM32 SusD SusC SusD SusC unk HTCS unk GH154 unk unk SusD SusC unk unk unk unk Pept_MA SusD SusC ECF-σ unk Anti-σ			38
+Bacteroides cellulosilyticus BFG-371	#65747	Predicted PUL 5	unk SusD SusC GH154 unk HTCS unk GH10|CBM48|CE			8
 Bacteroides cellulosilyticus CL02T12C19	#16559	Predicted PUL 63	Anti-σ unk ECF-σ SusC SusD Pept_MA unk unk unk SusC SusD unk unk GH154			14
+Bacteroides cellulosilyticus CL02T12C19	#16560	Predicted PUL 64	HTCS unk SusC SusD SusC SusD unk GH16_3 GH43_24|GH16_3 HTCS SusC SusD GH43_24 GH154 PL42 GH105 GH43_19|GH43_34 GH97|GH43_19 GH51_2 GH51_2 GH2 GH43_17			22
+Bacteroides cellulosilyticus CL06T03C01	#50890	Predicted PUL 57	Anti-σ unk ECF-σ SusC SusD Pept_MA unk unk unk SusC SusD unk unk GH154 HTCS unk SusC SusD SusC SusD CBM32 GH16_3 unk GH43_24|GH16_3 HTCS SusC SusD GH43_24 GH154 PL42 GH105 GH43_19|GH43_34 GH97|GH43_19 GH51_2 GH51_2 GH2 GH43_17			37
+Bacteroides cellulosilyticus CL09T06C25	#56834	Predicted PUL 46	GH43_17 GH2 GH51_2 GH51_2 GH97|GH43_19 GH43_19|GH43_34 GH105 PL42 GH154 GH43_24 SusD SusC HTCS GH43_24|GH16_3 unk unk GH16_3 CBM32 SusD SusC SusD SusC unk HTCS GH154 unk unk SusD SusC unk unk unk Pept_MA SusD SusC ECF-σ unk Anti-σ			38
 Bacteroides cellulosilyticus DSM 14838	#110	Predicted PUL 8	SusC SusD Pept_MA unk unk unk SusC SusD unk unk unk GH154 unk HTCS			14
 Bacteroides cellulosilyticus DSM 14838	#113	Predicted PUL 11	GH128 unk SusC SusD GH43_24 GH154 PL42 GH105 GH43_19|GH43_34 GH97|GH43_19 GH51_2 GH51_2 GH2 GH43_17			14
+Bacteroides cellulosilyticus PL	#70544	Predicted PUL 2	GH43_17 GH2 GH51_2 unk GH51_2 GH97 GH43_19|GH43_34 GH105 PL42 GH154 GH43_24 SusD SusC unk GH128 HTCS GH43_24|GH16_3 GH16_3 CBM32 SusD SusC SusD SusC unk HTCS unk GH154 unk unk SusD SusC unk unk unk Pept_MA SusD SusC ECF-σ			38
+Bacteroides cellulosilyticus WH2	#21556	Predicted PUL 17	GH43_17 GH2 GH51_2 GH51_2 GH97|GH43_19 GH43_19|GH43_34 GH105 PL42 GH154 GH43_24 SusD SusC HTCS GH43_24|GH16_3 GH16_3 unk SusD SusC SusD SusC unk HTCS GH154 unk unk SusD SusC unk unk Pept_MA SusD SusC unk ECF-σ unk Anti-σ			36
+Bacteroides cellulosilyticus WH2	#21559	Predicted PUL 20	GH2 unk unk SusD SusC GH154 unk HTCS GH10|CBM48|CE			9
+Bacteroides cellulosilyticus WH2 (new assembly)	#28220	Predicted PUL 17	GH43_17 GH2 GH51_2 GH51_2 GH97|GH43_19 GH43_19|GH43_34 GH105 PL42 GH154 GH43_24 SusD SusC HTCS GH43_24|GH16_3 GH16_3 unk SusD SusC SusD SusC unk HTCS GH154 unk unk SusD SusC unk unk unk Pept_MA SusD SusC ECF-σ unk Anti-σ	#28108, #28109, #28110, #28111, #28112	Lite 18, Lite 19, Lite 20, Lite 21, Lite 22	36
+Bacteroides cellulosilyticus WH2 (new assembly)	#28223	Predicted PUL 20	GH2 unk unk SusD SusC GH154 unk HTCS GH10|CBM48|CE	#28115	Lite 25	9
+Bacteroides clarus An189	#35115	Predicted PUL 7	GH105 GH154 GH154 Sulf_1 GH43_28 Sulf_1 GH88|GH154 CE15 GH2|CBM GH GH50 unk SusD SusC CBM|CBM|CBM96 CE20|CE6 GH2 HTCS unk SusD SusC SusR			22
+Bacteroides clarus An43	#35070	Predicted PUL 10	SusR SusC SusD unk HTCS GH2 CE20|CE6 CBM|CBM|CBM96 SusC SusD unk GH50 GH GH2|CBM CE15 GH88|GH154 Sulf_1 GH43_28 Sulf_1 GH154 GH154 GH105			22
+Bacteroides clarus DSM 22519	#55358	Predicted PUL 23	SusR SusC SusD unk HTCS GH2 CE20|CE6 CBM|CBM|CBM96 SusC SusD unk GH50 GH GH2|CBM CE15 GH88|GH154 Sulf_1 GH43_28 Sulf_1 GH154 GH154 GH105			22
+Bacteroides clarus YIT 12056	#4017	Predicted PUL 22	SusR SusC SusD unk HTCS GH2 CE20|CE6 CBM|CBM|CBM96 SusC SusD unk GH50 GH GH2|CBM CE15 unk GH88|GH154 Sulf_1 GH43_28 Sulf_1 GH154 GH154 GH105			23
+Bacteroides eggerthii 1_2_48FAA	#612	Predicted PUL 15	SusR SusC SusD unk HTCS GH2 CE20|CE6 CBM|CBM|CBM96 SusC SusD unk GH50 GH GH2|CBM GH88|GH154 Sulf_1 GH43_28 Sulf_1 GH154 GH154 GH105			21

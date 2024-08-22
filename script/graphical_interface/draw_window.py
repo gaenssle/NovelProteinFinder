@@ -33,21 +33,22 @@ def draw_frame(frames):
 
 ## ===========================================================================
 ## Draw widgets for window (generalize formatting)
-def draw_widget(widgets, formatting, add=0):
+def draw_widget(widgets, formatting, start_row=0, start_col=0):
 	counter = Counter()
-	counter.add(add)
+	counter.add(start_row)
 	for widget in widgets:
 		sticky = formatting.sticky
 		row = counter.add()
-		column = 0
+		column = start_col
 		padx = formatting.padx
 		if isinstance(widget, tk.Checkbutton):
 			sticky = "nw"
 		elif isinstance(widget, tk.Scrollbar):
 			sticky = "ns"
-			column = 1
+			column += 1
 			row -= 1
 			padx = (0, padx)
+			counter.add(-2)
 		elif isinstance(widget, tk.Listbox):
 			padx = (padx, 0)
 		widget.grid(
@@ -62,9 +63,9 @@ def draw_widget(widgets, formatting, add=0):
 		if isinstance(widget, tk.LabelFrame):
 			widget.grid_columnconfigure(0, weight=1)
 
-def draw_form(form_dict, window, formatting, add=0):
+def draw_form(form_dict, window, formatting, start_row=0, start_col=0):
 	counter = Counter()
-	counter.add(add)	
+	counter.add(start_row)	
 	for label in form_dict:
 		row = counter.add()
 		tk.Label(
@@ -73,7 +74,7 @@ def draw_form(form_dict, window, formatting, add=0):
 				font=formatting.font_text
 				).grid(
 					row=row, 
-					column=0, 
+					column=start_col, 
 					sticky = "w", 
 					padx=formatting.padx
 					)
@@ -83,6 +84,6 @@ def draw_form(form_dict, window, formatting, add=0):
 				font=formatting.font_text
 				).grid(
 					row=row, 
-					column=1, 
+					column=start_col + 1, 
 					padx=formatting.padx
 					)

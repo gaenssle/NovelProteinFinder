@@ -6,20 +6,6 @@
 ## Default values defining how the data is imported
 ## ====================================================================
 
-## Class for default values
-class DataLength():
-	def __init__(self, data_series):
-		self.list = data_series
-
-		# Get lowest and highest value
-		self.min_value = self.list.min()
-		self.max_value = self.list.max()
-
-		# Set range for filtering
-		self.min_range = self.min_value
-		self.max_range = self.max_value
-
-
 
 class FilterSettings():
 	def __init__(self):
@@ -27,6 +13,9 @@ class FilterSettings():
 		self.length_min_range = 0
 		self.length_max_range = 100
 		self.set_data = False
+		self.proteins = []
+		self.protein_list = []
+		self.protein_selection = []
 
 	def add_data(self, data_frame):
 		self.data = data_frame
@@ -36,3 +25,8 @@ class FilterSettings():
 		self.length_max_range = self.data["Length"].max()
 		self.set_data = True
 
+	def add_proteins(self, data_proteins):
+		self.proteins = data_proteins
+
+	def get_protein_list(self, col):
+		self.protein_list = self.proteins[col].to_list()

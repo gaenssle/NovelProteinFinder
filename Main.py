@@ -21,7 +21,9 @@ from script.novel_protein_finder.data_classes import FilterSettings
 from script.novel_protein_finder.select_length_range import get_length_range
 
 
-# Create class objects
+## ===========================================================================
+## CREATE CLASS OBJECTS
+## ===========================================================================
 if __name__=="__main__":
 	files = FileSelection()
 	default_values = DefaultValues()
@@ -30,28 +32,27 @@ if __name__=="__main__":
 	filter_settings = FilterSettings()
 
 
-
 ## ===========================================================================
 ## FUNCTIONS
 ## ===========================================================================
-# Get input name and set all variables according to it
+## Get input name and set all variables according to it
 def set_input_file(ask=True):
 	files.get_input_file(ask=ask)
 	set_truncated_path(files.input_path, input_path)
 	set_truncated_path(files.path_data_all, path_data_all)
 	set_truncated_path(files.path_data_filtered, path_data_filtered)
 
-# Set costumized output file location and name
+## Set costumized output file location and name
 def set_path_data_all():
 	files.get_path_data_all()
 	set_truncated_path(files.path_data_all, path_data_all)
 
-# Set costumized output file location and name
+## Set costumized output file location and name
 def set_path_data_filtered():
 	files.get_path_data_filtered()
 	set_truncated_path(files.path_data_filtered, path_data_filtered)
 
-# Truncate paths that are too long
+## Truncate paths that are too long
 def set_truncated_path(path, tk_variable):
 	max_length = formatting.lab_max_length//4
 	if len(path) > max_length:
@@ -59,13 +60,13 @@ def set_truncated_path(path, tk_variable):
 	else:
 		tk_variable.set(path)
 
-# Save selection of input files
+## Save selection of input files
 def submit_selection():
 	if files.input_path == "":
 		tkinter.messagebox.showwarning("Missing data","No input file selected!")
 		return
 
-# Conduct importing, combining and exporting of files
+## Conduct importing, combining and exporting of files
 def extract_data_all():
 	message = extract_html_data(files, default_values)
 	if message["m_type"] == "info":
@@ -79,7 +80,7 @@ def extract_data_all():
 	filter_settings.add_data(data_frame)
 
 
-# Set filters for the PUL length
+## Set filters for the PUL length
 def set_filter_length():
 	if filter_settings.set_data:
 		length_series = filter_settings.data["Length"]
@@ -87,6 +88,16 @@ def set_filter_length():
 	else:
 		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
 
+## Select proteins the PUL have to contain to pass the filter
+def select_proteins():
+	if filter_settings.set_data:
+		mod_list = filter_settings.data[default_values.col_names[3]].str.split(" ").to_list()
+		print(mod_list)
+		# select_required_proteins(length_series, window, default_values.len_plot_step, formatting, colors, filter_settings)
+	else:
+		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
+
+## Filter the PULS based on length and/or required proteins
 def filter_data():
 	if filter_settings.set_data:
 		data_filtered = filter_settings.data.copy()	# Make a copy to avoid errors
@@ -110,10 +121,11 @@ window.title("Find novel proteins")
 window.resizable(False, False)
 
 
+## Sert columns
 col_files = tk.Frame(window, relief=tk.RAISED, bd=3, bg=colors.col_main)
 col_filter = tk.Frame(window, relief=tk.RAISED, bd=3, bg=colors.col_main)
 
-# Draw frames
+## Draw frames
 draw_window.draw_frame([col_files, col_filter])
 
 
@@ -142,7 +154,7 @@ menu_help.add_command(label="Change markers",
 							window, default_values, formatting))
 menu_bar.add_cascade(label="Configure", menu=menu_help)
 
-# Draw menu bar
+## Draw menu bar
 window.config(menu=menu_bar)
 
 
@@ -229,6 +241,13 @@ button_len_filter = tk.Button(col_filter,
 						bg=colors.button_select, 
 						font=formatting.font_subheading)
 
+## Set list of required CAZY
+button_protein_filter = tk.Button(col_filter, 
+						text="Select required proteins", 
+						command=select_proteins, 
+						bg=colors.button_select, 
+						font=formatting.font_subheading)
+
 
 ## Create section for file path for filtered data
 button_file_data_filtered = tk.Button(col_filter, 
@@ -259,6 +278,7 @@ button_filter = tk.Button(col_filter,
 widgets = {
 			lab_col_filter:1, 
 			button_len_filter:2,
+			button_protein_filter:2,
 			labframe_file_data_filtered:2, 
 			display_file_data_filtered:1,
 			button_filter:2

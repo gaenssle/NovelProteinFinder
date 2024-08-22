@@ -13,8 +13,8 @@ class DefaultValues():
 		# Set column names of the extracted pandas dataframe
 		self.col_names = ["Species", "PUL ID", "Name", "Modularity", "Overlap IDs", "Overlap Names"]
 
-		# Set default values for marker
-		self.marker_list =[ "GH154", "unk", "GH"]
+		# Set column names for protein count pandas dataframe
+		self.protein_col_names = ["Protein", "Occurences"]
 
 		# PUL length - Histrogram plot: Set step size (default=2.5)
 		self.len_plot_step = 2.5

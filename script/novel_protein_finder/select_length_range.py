@@ -4,10 +4,9 @@ import tkinter as tk
 import tkinter.messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
+import sys
 
 ## import own modules
-import sys
 sys.path.append('.')
 from script.graphical_interface import draw_window
 
@@ -99,7 +98,7 @@ def get_length_range(length_series, window, len_plot_step, formatting, colors, f
 		"Min length": min_length,
 		"Max length:": max_length
 	}
-	draw_window.draw_form(form_dict, window_set_length_range, formatting, add=2)
+	draw_window.draw_form(form_dict, window_set_length_range, formatting, start_row=2)
 
 	# Create button to submit the added changes
 	set_range_button = tk.Button(
