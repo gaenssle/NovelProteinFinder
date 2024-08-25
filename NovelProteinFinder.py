@@ -12,25 +12,24 @@ import tkinter.messagebox
 from script.graphical_interface import draw_window
 from script.graphical_interface import formatting
 from script.graphical_interface import menu_about
-from script.graphical_interface import menu_change_markers
 
-from script.novel_protein_finder.default_values import DefaultValues
-from script.novel_protein_finder.file_class import FileSelection
-from script.novel_protein_finder.filter_class import FilterSettings
+from script.novel_protein_finder import default_values
+from script.novel_protein_finder import file_class
+from script.novel_protein_finder import filter_class
 
-from script.novel_protein_finder.extract_all_data import extract_html_data
-from script.novel_protein_finder.select_length_range import get_length_range
-from script.novel_protein_finder.select_required_proteins import get_protein_selection
+from script.novel_protein_finder import extract_all_data
+from script.novel_protein_finder import select_length_range
+from script.novel_protein_finder import select_required_proteins
 
 ## ===========================================================================
 ## CREATE CLASS OBJECTS
 ## ===========================================================================
 if __name__=="__main__":
-	files = FileSelection()
-	default_values = DefaultValues()
+	files = file_class.FileSelection()
+	default_values = default_values.DefaultValues()
 	colors = formatting.Colors()
 	formatting = formatting.Formatting()
-	filter_settings = FilterSettings()
+	filter_settings = filter_class.FilterSettings()
 
 
 ## ===========================================================================
@@ -69,7 +68,7 @@ def submit_selection():
 
 ## Conduct importing, combining and exporting of files
 def extract_data_all():
-	message = extract_html_data(files, default_values)
+	message = extract_all_data.extract_html_data(files, default_values)
 	if message["m_type"] == "info":
 		tkinter.messagebox.showinfo(message["title"], message["message"])
 	else:
@@ -85,7 +84,7 @@ def extract_data_all():
 def set_filter_length():
 	if filter_settings.set_data:
 		length_series = filter_settings.data["Length"]
-		get_length_range(length_series, window, default_values.len_plot_step, formatting, colors, filter_settings)
+		select_length_range.get_length_range(length_series, window, default_values.len_plot_step, formatting, colors, filter_settings)
 	else:
 		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
 
@@ -93,7 +92,7 @@ def set_filter_length():
 def select_proteins():
 	if filter_settings.set_data:
 		pul_list = filter_settings.data[default_values.col_names[3]].str.split(" ").to_list()
-		get_protein_selection(pul_list, window, formatting, colors, filter_settings, default_values)
+		select_required_proteins.get_protein_selection(pul_list, window, formatting, colors, filter_settings, default_values)
 	else:
 		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
 
