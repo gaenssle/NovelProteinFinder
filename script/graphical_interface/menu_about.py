@@ -22,6 +22,13 @@ This program imports html files from the PUL DB, extracts and filters the data
 OVERALL REQUIREMENTS:
 - The data has to be a link to a specific PULDB website or the source code from the given website
 - There are default name endings but they can be changed
+
+Problems with downloading from the website:
+-Make sure that the link is correct.
+-Check if you have internet.
+
+If the error keeps persisting, open the link in a browser, right click on it and select 'view source code', copy all data and save as .txt file.
+Then skip this part and go to the import section.
 """
 
 ## ===========================================================================
