@@ -1,10 +1,8 @@
 #!/usr/bin/python
 # Written by ALGaenssle in 2024
+# CLASS
+# Default values for how the data is imported and exported
 
-## ====================================================================
-## CLASS
-## Default values defining how the data is imported
-## ====================================================================
 
 ## Class for default values
 class DefaultValues():

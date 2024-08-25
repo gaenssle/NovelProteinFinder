@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # Written by ALGaenssle in 2024
 # MODULE - DRAW WINDOW
-# Additional actions
+# Draw all tkinter windows, frames, widgets and forms
 
 import tkinter as tk
 

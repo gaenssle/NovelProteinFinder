@@ -1,25 +1,26 @@
 #!/usr/bin/python
 # Written by ALGaenssle in 2024
-# MAIN
+# MAIN SCRIPT
 # main script to extract and find novel proteins
 
-import pandas as pd
 import os
+import pandas as pd
 import tkinter as tk
 import tkinter.messagebox
 
 # Own modules
-from script.graphical_interface import formatting
 from script.graphical_interface import draw_window
-from script.graphical_interface.file_selection import FileSelection
+from script.graphical_interface import formatting
 from script.graphical_interface import menu_about
 from script.graphical_interface import menu_change_markers
 
-from script.novel_protein_finder.extract_all_data import extract_html_data
 from script.novel_protein_finder.default_values import DefaultValues
-from script.novel_protein_finder.data_classes import FilterSettings
+from script.novel_protein_finder.file_class import FileSelection
+from script.novel_protein_finder.filter_class import FilterSettings
+
+from script.novel_protein_finder.extract_all_data import extract_html_data
 from script.novel_protein_finder.select_length_range import get_length_range
-from script.novel_protein_finder.select_required_proteins import draw_protein_window
+from script.novel_protein_finder.select_required_proteins import get_protein_selection
 
 ## ===========================================================================
 ## CREATE CLASS OBJECTS
@@ -92,7 +93,7 @@ def set_filter_length():
 def select_proteins():
 	if filter_settings.set_data:
 		pul_list = filter_settings.data[default_values.col_names[3]].str.split(" ").to_list()
-		draw_protein_window(pul_list, window, formatting, colors, filter_settings, default_values)
+		get_protein_selection(pul_list, window, formatting, colors, filter_settings, default_values)
 	else:
 		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
 
@@ -117,7 +118,7 @@ def filter_data():
 
 
 		data_filtered.to_csv(files.path_data_filtered, sep=default_values.sep, index=False)
-		tkinter.messagebox.showinfo("Data exported", "The filtered data has been exported.")
+		tkinter.messagebox.showinfo("Data exported", "The filtered data has been exported to a .csv table.")
 	else:
 		tkinter.messagebox.showwarning("Missing data","No file with all data!\nExport data first.")
 

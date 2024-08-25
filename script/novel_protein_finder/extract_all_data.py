@@ -1,18 +1,14 @@
 #!/usr/bin/python
 # Written by ALGaenssle in 2024
+# MODULE - EXTRACT HTML
+# Extract data from html file
 
-## ====================================================================
-## SCRIPT - MAIN
-## Main script for importing SEC data
-## ====================================================================
 
 from bs4 import BeautifulSoup
 import os
 import pandas as pd
 import re
 
-# Import own modules
-# from . import functions
 
 
 ## ===========================================================================
@@ -94,8 +90,6 @@ def extract_html_data(files, default_values):
 				"message":"Could not convert to table!\nPlease check if the column names are correct\n(--> see 'Configure')"}
 			
 	# Export data
-	message = "Created files:\n\n"
 	data_frame.to_csv(files.path_data_all, sep=default_values.sep, index=False)
-	message += "- File with all PULs\n"
 
-	return {"m_type": "info", "title": "Done exporting", "message": message}
+	return {"m_type": "info", "title": "Done exporting", "message": "The raw data (all PUL) have been exported to a table."}

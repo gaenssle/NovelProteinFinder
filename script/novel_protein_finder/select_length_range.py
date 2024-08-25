@@ -1,12 +1,16 @@
-# #!/usr/bin/python
+#!/usr/bin/python
+# Written by ALGaenssle in 2024
+# MODULE - SET LENGTH
+# Show tkinter window with matplot to choose PUL length
 
-import tkinter as tk
-import tkinter.messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import sys
+import tkinter as tk
+import tkinter.messagebox
 
-## import own modules
+
+## Own modules
 sys.path.append('.')
 from script.graphical_interface import draw_window
 
@@ -114,7 +118,8 @@ def get_length_range(length_series, window, len_plot_step, formatting, colors, f
 						window_set_length_range, 
 						text="Set PUL length range", 
 						command=submit_length_range, 
-						font=formatting.font_text
+						font=formatting.font_text,
+						bg=colors.accent
 						).grid(
 							row=len(form_dict)+3, 
 							columnspan=2, 
@@ -128,7 +133,7 @@ def get_length_range(length_series, window, len_plot_step, formatting, colors, f
 						text = "Show plot",
 						command = draw_length_plot, 
 						font=formatting.font_text,
-						bg=colors.accent	
+						bg=colors.button_select	
 						).grid(
 							row=len(form_dict)+4, 
 							columnspan=2, 

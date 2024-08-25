@@ -1,12 +1,11 @@
 #!/usr/bin/python
 # Written by ALGaenssle in 2024
+# CLASS
+# Save all required settings for filtering the data
+
 
 ## ====================================================================
-## CLASS
-## Default values defining how the data is imported
-## ====================================================================
-
-
+## Create class to store filter settings
 class FilterSettings():
 	def __init__(self):
 		self.data = []

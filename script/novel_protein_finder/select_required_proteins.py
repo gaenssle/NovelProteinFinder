@@ -1,35 +1,32 @@
-# #!/usr/bin/python
+#!/usr/bin/python
+# Written by ALGaenssle in 2024
+# MODULE - SET PROTEIN LIST
+# Show tkinter window with matplot to choose protein list
 
 import pandas as pd
-import tkinter as tk
-import tkinter.messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
-
-
-import os
 import sys
+import tkinter as tk
+import tkinter.messagebox
 
-## import own modules
+
+## Own modules
 sys.path.append('.')
-from script.graphical_interface import formatting
 from script.graphical_interface import draw_window
-from script.graphical_interface.file_selection import FileSelection
-
-from script.novel_protein_finder.default_values import DefaultValues
-from script.novel_protein_finder.data_classes import FilterSettings
-
-
-
-
 
 
 	
 ## ============================================================================
 ## Draw window for protein selection with all its contents
 ## ============================================================================
-def draw_protein_window(pul_list, window, formatting, colors, filter_settings, default_values):
-	protein_selection_info = "Please select all the proteins that the PUL is required to contain to pass the filter."
+def get_protein_selection(pul_list, window, formatting, colors, filter_settings, default_values):
+	protein_selection_info = ("Select all the proteins "
+		"that the PUL is required to contain to pass the filter.\n\n"
+		"Selecting the base family (e.g. GH43) will also select all sub-families (e.g. GH43_2).\n\n"
+		"All proteins currently found in the PULs are shown in the list "
+		"and can be sorted by number of occurrence of alphabetically.")
+
 
 
 	## ========================================================================
@@ -115,7 +112,7 @@ def draw_protein_window(pul_list, window, formatting, colors, filter_settings, d
 
 	show_info = tk.Text(window_select_proteins, 
 						wrap=tk.WORD, 
-						height=4, 
+						height=8, 
 						width=60, 
 						font=formatting.font_text)
 	show_info.grid(row=1,
@@ -143,7 +140,7 @@ def draw_protein_window(pul_list, window, formatting, colors, filter_settings, d
 
 	## Display/hide, correct, label and display input files
 	button_toggle_sort = tk.Button(window_select_proteins,
-									text="Toggle sort", 
+									text="Toggle sort (freq./A-Z)", 
 									bg=colors.button, 
 									command=toggle_sort, 
 									font=formatting.font_text)

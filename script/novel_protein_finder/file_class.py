@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # Written by ALGaenssle in 2024
 # CLASS
-# Obtain all required information which data should be imported
+# Save all required file paths
 
 import os
 import tkinter as tk

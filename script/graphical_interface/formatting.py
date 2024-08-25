@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # Written by ALGaenssle in 2024
 # CLASSES
-# For formatting the graphical interface
+# Format the graphical interface with colors, padding and fonts
 
 ## ===========================================================================
 ## Set colors for window

@@ -1,9 +1,0 @@
-Species	PUL ID	Name	Modularity	Overlap IDs	Overlap Names
-Bacteroides cellulosilyticus WH2 (new assembly)	#28108	Literature-derived PUL 18	GH43_17 GH2 GH51_2 GH51_2 GH97|GH43_19 GH43_19|GH43_34 GH105 PL42 GH154 GH43_24 SusD SusC HTCS	#28220	Pred 17 
-Bacteroides fragilis 638R	#3775	Literature-derived PUL 1	GH154 GH2 GH20 unk GH88 PL33_1 SusD SusC HTCS	#3781	Pred 3 
-Bacteroides ovatus ATCC 8483	#282	Literature-derived PUL 49	GH2 CE12|CE12 HTCS unk unk unk unk GH106 unk unk PL11_1 SusD SusC unk unk SusD SusC unk GH2 GH88 GH154 Est GH28 unk GH95 GH2 GH105 PL11_1	#397	Pred 49 
-Bacteroides ovatus ATCC 8483 (new assembly)	#28541	Literature-derived PUL 49	GH2 CE12|CE12 HTCS unk GH106 unk unk PL11_1 SusD SusC unk unk SusD SusC unk GH2 GH88 GH154 Est GH28 GH95 GH2 GH105 PL11_1	#28661	Pred 56 
-Bacteroides thetaiotaomicron 7330 (new assembly)	#28382	Literature-derived PUL 76	GH105 PL42 GH43_24 GH16_3|GH43_24 unk SusD SusC unk HTCS GH154 unk GH43_34 GH127	#28469	Pred 72 
-Bacteroides thetaiotaomicron VPI-5482	#27870	Literature-derived PUL 42	GH146 GH43_26|GH106 GH88 Sulf_1 unk GH154 unk unk SusD SusC GH105 GH2 HTCS	#27963	Pred 39 
-Bacteroides thetaiotaomicron VPI-5482	#27893	Literature-derived PUL 65	GH127 GH43_34 unk GH154 HTCS unk SusC SusD unk GH16_3|GH43_24 GH43_24 PL42 GH105	#27987	Pred 63 
-Phocaeicola plebeius DSM 17135	#3605	Literature-derived PUL 1	unk unk unk GH16_16 GH117 GH2 GH2 unk unk unk MFS unk unk unk unk unk GH50 GH105|GH154 unk unk unk unk GH16_12 unk unk unk GH86 GH86 unk unk SusD SusC HTCS unk Sulf_1 GH29 GH16_14 SusD SusC GH2	#3621, #3651	Pred 16 , CAZy 3 
