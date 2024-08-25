@@ -105,6 +105,17 @@ def filter_data():
 		data_filtered = data_filtered[data_filtered["Length"] > filter_settings.length_min_range]
 		data_filtered = data_filtered[data_filtered["Length"] < filter_settings.length_max_range]
 
+
+		# Filter data based on protein list
+		for protein in filter_settings.protein_selection:
+			data_filtered[protein] = data_filtered[default_values.col_names[3]].str.contains(protein)
+
+		data_filtered["all"] = data_filtered.all(axis=1, bool_only=True)
+		data_filtered = data_filtered.loc[data_filtered["all"]]
+		data_filtered = data_filtered.drop(columns=filter_settings.protein_selection+["all"])
+
+
+
 		data_filtered.to_csv(files.path_data_filtered, sep=default_values.sep, index=False)
 		tkinter.messagebox.showinfo("Data exported", "The filtered data has been exported.")
 	else:

@@ -49,7 +49,6 @@ def draw_protein_window(pul_list, window, formatting, colors, filter_settings, d
 	def set_protein_list(protein_list_string):
 		filter_settings.get_protein_list(default_values.protein_col_names[0])
 		protein_list_string.set(filter_settings.protein_list)
-		# list_box_proteins.selection_set(0, "end")
 
 	## ========================================================================
 	## Toggle sort list by count of alphabetically
