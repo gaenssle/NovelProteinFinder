@@ -25,6 +25,7 @@ class FileSelection():
 	def get_save_path(self):
 		self.save_path = tk.filedialog.asksaveasfilename(
 										initialfile = "PULs_raw",
+										defaultextension=".txt",
 										title = "Select file name for raw data",
 										filetypes = (("txt","*.txt"),("html","*.html"),("all files","*.*")))
 

@@ -18,5 +18,5 @@ class DefaultValues():
 		self.len_plot_step = 2.5
 
 		# Separator of csv. files
-		self.sep = "\t"
+		self.sep = ";"
 
