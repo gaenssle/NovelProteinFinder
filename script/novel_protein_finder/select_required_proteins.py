@@ -33,8 +33,13 @@ def get_protein_selection(pul_list, window, formatting, colors, filter_settings,
 	## Create dataframe with all found proteins and their occurence
 	def get_protein_list(pul_list):
 		temp1_list = [protein for pul in pul_list for protein in pul]
-		temp2_list = [protein.split("|") for protein in temp1_list]
-		protein_list = [domain for protein in temp2_list for domain in protein]
+		protein_list = temp1_list.copy()
+		for protein in temp1_list:				
+			if "|" in protein:
+				protein_list.extend(protein.split("|"))
+
+		# temp2_list = [protein.split("|") for protein in temp1_list]
+		# protein_list = [domain for protein in temp2_list for domain in protein]
 		protein_data = pd.Series(protein_list).value_counts()
 		protein_count = pd.DataFrame(protein_data).reset_index()
 		protein_count.columns = default_values.protein_col_names

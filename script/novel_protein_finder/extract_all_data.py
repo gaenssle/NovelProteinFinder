@@ -49,7 +49,7 @@ def clean_data(row_cols, default_values):
 	data_frame.dropna(how='all', axis=1, inplace=True)
 
 	# Check if there are multiple overlap columns and concat them, add new column names
-	if len(data_frame.columns) < len(col_names):
+	if len(data_frame.columns) < len(col_names)-1:
 		default_values.col_names = col_names[:len(data_frame.columns)]
 	else:
 		overlap_cols = data_frame.columns[len(col_names)-2:]
