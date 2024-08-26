@@ -72,8 +72,8 @@ def get_protein_selection(pul_list, window, formatting, colors, filter_settings,
 	def submit_selection():
 		filter_settings.protein_selection = [list_box_proteins.get(index) 
 							for index in list_box_proteins.curselection()]
-		tkinter.messagebox.showinfo("Protein list updated", 
-			f"There are now {len(filter_settings.protein_selection)} required proteins:\n{"\n".join(filter_settings.protein_selection)}")
+		selection = "\n".join(filter_settings.protein_selection)
+		tkinter.messagebox.showinfo("Protein list updated", f"There are now {len(filter_settings.protein_selection)} required proteins:\n{selection}")
 
 	## ========================================================================
 	## Draw the protein plot
